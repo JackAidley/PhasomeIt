@@ -1,0 +1,8 @@
+1.1.1	:	Minor bug fix to metadata handling
+1.1.0	:	Improved error handling
+			Added creation of a logfile
+			Added --numberTrees which numbers trees instead of adding names
+			Added --metadata and --metadataColumns commands to control metadata annotation from command line
+			Added --version argument to query current version number
+			Includes updated Bossref (bug fixes)
+1.0.0	:	Initial release, to coincide with thesis submission
