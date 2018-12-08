@@ -11,7 +11,7 @@ import settings
 import findpvinstrains
 from speciesannotator import SpeciesAnnotator
 
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 
 def main() :
     '''Run phasomeit using command line arguments'''
@@ -151,7 +151,8 @@ def main() :
     logging.info(' '.join(sys.argv))
 
     # Run the tool
-    plugins = [SpeciesAnnotator(args.target, settings.metadataCsv)]
+    metadataCsv = args.target + settings.metadataCsv if settings.metadataCsv else None
+    plugins = [SpeciesAnnotator(metadataCsv)]
     findpvinstrains.findPVinFolder(args.target, args.filter, args.cutoffs, plugins)
     plugins.append(findpvinstrains.findAssociations(args.target))
     findpvinstrains.reHTMLPickle(args.target, plugins)
