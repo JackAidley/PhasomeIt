@@ -208,7 +208,7 @@ def findAllPolysInStrain(strain, filter, minLengths, namer) :
 
     # Build the string
     arguments = ' -i "'+fastaPath+'" -o "'+tempPath+'" -c "'+' '.join(str(n) for n in minLengths)+'"'
-    if len(filter) > 0 :
+    if filter and len(filter) > 0 :
         arguments += ' -f '+filter
 
     # Run it
