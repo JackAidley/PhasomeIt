@@ -39,11 +39,11 @@ INVOKE PHASOMEIT
 
 PhasomeIt is invoked by calling python on the script from the command line, navigate to the folder containing phasomeit and invoke the command below. Depending on how you have set up your system you may need to use 'python3' instead of 'python':
 
-python phasomeit -t <target-folder> -c <cutoffs> [-f <filter>]
+python phasomeit -t *target-folder* -c *cutoffs* [-f *filter*]
 
-Where: <target-folder> is the path containing your genomes
-       <cutoffs> are the minimum repeat lengths to accept at each repeat length (see below)
-       <filter> is used to remove some results and is optional (see below)
+Where: *target-folder* is the path containing your genomes
+       *cutoffs* are the minimum repeat lengths to accept at each repeat length (see below)
+       *filter* is used to remove some results and is optional (see below)
 
 HOW TO CHOOSE CUTOFFS
 
@@ -53,7 +53,7 @@ There are no exact guidelines for what cutoffs to choose, it will depend on your
 
 FILTERING RESULTS
 
-With species with a low (or high) G/C content, chance is likely to skew the results, especially as A/T tracts are less variable and need to be longer to produce a phase variable effect. Filtering allows extraneous results to be removed. Currently only a single filter can be set for any run. Filters are specified as <repeat-unit><maximum-length-to-ignore> and repeat-unit types support the normal four letters W and S, so - for example - adding '-f W9' would remove all A/T tracts of length 9 or less from the analysis (i.e. treat the minimum A/T length as 10). A filter cutoff of 'W9' was used in our analysis.
+With species with a low (or high) G/C content, chance is likely to skew the results, especially as A/T tracts are less variable and need to be longer to produce a phase variable effect. Filtering allows extraneous results to be removed. Currently only a single filter can be set for any run. Filters are specified as {repeat-unit}{maximum-length-to-ignore} (no space between the two) and repeat-unit types support the normal four DNA letters plus W and S, so - for example - adding '-f W9' would remove all A/T tracts of length 9 or less from the analysis (i.e. treat the minimum A/T length as 10). A filter cutoff of 'W9' was used in our analysis.
 
 OTHER FUNCTIONS
 
@@ -61,4 +61,6 @@ See 'python phasomeit --help' for a full list of commands.
 
 # Support and citation
 
-See jackaidley.co.uk/phasomeit for further details. A publication is currently in submission and will (hopefully!) be available soon.
+PhasomeIt is described in the 2018 publication _PhasomeIt: an ‘omics’ approach to cataloguing the potential breadth of phase variation in the genus Campylobacter_  https://doi.org/10.1099/mgen.0.000228
+
+Please cite this publication if you use this program in your research.
