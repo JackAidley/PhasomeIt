@@ -3,7 +3,6 @@ import platform
 
 from Bio.Seq import Seq
 from Bio.Seq import reverse_complement
-from Bio.Alphabet import IUPAC
 from Bio.SeqFeature import FeatureLocation
 
 from blastmatch import getFastaName
@@ -32,11 +31,11 @@ def guessFullTract(genomeRecord, geneLocation, poly) :
     # Try varying the polyG to see what happens to the reading frame
     longest = -1
     longestExtra = 0
-    longestTrans = Seq('', IUPAC.unambiguous_dna)
+    longestTrans = Seq('')
     for extra in range(0, 3) :
-        modSeq = seq[0:offset] + Seq(repeatUnit*extra, IUPAC.unambiguous_dna) + seq[offset:]
+        modSeq = seq[0:offset] + Seq(repeatUnit*extra) + seq[offset:]
         # Pad to multiple of 3
-        modSeq = modSeq + Seq('A'*(3-(len(modSeq) % 3)), IUPAC.unambiguous_dna)
+        modSeq = modSeq + Seq('A'*(3-(len(modSeq) % 3)))
         translation = modSeq.translate(table=11, to_stop=True) # table 11 is the bacterial translation table
         if len(translation) > longest :
             longest = len(translation)
@@ -359,7 +358,7 @@ def findORFinFrame(genomeRecord, location, frame, poly) :
         seq = genomeRecord.seq[location+(frame+1): location+upstream+(frame+1)]
         seq = seq.reverse_complement()
 
-    seq = seq + Seq('A'*(3-(len(seq) % 3)), IUPAC.unambiguous_dna)
+    seq = seq + Seq('A'*(3-(len(seq) % 3)))
     trans = seq.translate(table=11, to_stop=True)
 
     # Scan back through the sequence until we find a stop codon

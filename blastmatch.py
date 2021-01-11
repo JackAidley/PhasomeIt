@@ -342,7 +342,7 @@ def blastComparePVs(db, path) :
     # Then blast each one against all the other strains
     print('Blasting', flush=True)
 
-    startT = time.clock()
+    startT = time.process_time()
 
     repeat = 0
     targets = [(strain['path'], strain['name']) for strain in db]
@@ -407,7 +407,7 @@ def blastComparePVs(db, path) :
             readBlast(db, path, strain)
             print('.', end='', flush=True)
 
-    print('\n Total BLAST time: ({0:.2f}s)'.format(time.clock()-startT))
+    print('\n Total BLAST time: ({0:.2f}s)'.format(time.process_time()-startT))
 
     # Now we've got all the matching genes, we can network them into groups
     groupMatchedGenes(db)

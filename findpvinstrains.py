@@ -16,7 +16,7 @@ import pickle
 from Bio.Seq import Seq
 
 def main() :
-    t=time.clock()
+    t=time.process_time()
 
     #targetPath = '../polyG/c.jejuni'
     #targetPath = '../polyG/campy.new'
@@ -28,7 +28,7 @@ def main() :
     #targetPath = '../polyG/MenW'
     #targetPath = '../polyG/c.jejuni_plasmids'
     #targetPath = '../polyG/h.pylori'
-    #targetPath = '../polyG/c.jejuni_six'
+    targetPath = '../../polyG/c.jejuni_six'
     #targetPath = '../polyG/c.jejuni_samtest'
     #targetPath = 'strain11168andPT14'
     #targetPath= 'strainPT14'
@@ -42,7 +42,7 @@ def main() :
     #targetPath = '../polyG/Neisseria.test'
     #targetPath= '../polyG/MenTest'
 
-    targetPath = '../polyG/all_st21'
+    #targetPath = '../polyG/all_st21'
 
     startLog(targetPath)
     logging.info('New run started from script')
@@ -54,14 +54,14 @@ def main() :
     plugins = [SpeciesAnnotator(targetPath+'/_metadata.csv')]
     #findPVinFolder(targetPath, 'W10', [9, 15, 6, 5, 5, 3, 3, 3, 3], plugins) # for Neisseria
     #findPVinFolder(targetPath, 'W10', [9, 6, 10, 5, 5], plugins) # for others
-    #findPVinFolder(targetPath, 'W9', [7, 6, 10, 5, 5], plugins) # For campy
+    findPVinFolder(targetPath, 'W9', [7, 6, 10, 5, 5], plugins) # For campy
     #findPVinFolder(targetPath, '', [9], plugins) # For all_st21/all_st45 test
     #reExcelPickle(targetPath, 'summary_pickle.pkl')
     #splitPickle(targetPath, 'summary_pickle.pkl')
     plugins.append(findAssociations(targetPath))
     reHTMLPickle(targetPath, plugins)
 
-    print("Time taken: "+str(time.clock()-t)+"s")
+    print("Time taken: "+str(time.process_time()-t)+"s")
 
 def startLog(targetPath) :
     ''' Wrapped only to avoid duplication '''
@@ -75,7 +75,7 @@ def startLog(targetPath) :
 
 
 def findPVinFolder(targetPath, filter, minLengths, plugins = None) :
-    t=time.clock()
+    t=time.process_time()
 
     # Create the temp directory
     if not os.path.exists(os.path.join(targetPath, 'temp')):
@@ -84,15 +84,15 @@ def findPVinFolder(targetPath, filter, minLengths, plugins = None) :
     # Find all the SSRs
     db = crawlGenomes(targetPath, filter, minLengths, plugins)
 
-    print("Crawl time: "+str(time.clock()-t)+"s")
+    print("Crawl time: "+str(time.process_time()-t)+"s")
 
-    t=time.clock()
+    t=time.process_time()
     blastmatch.blastComparePVs(db, targetPath)
 
     # Strip everything not still in use from the data
     for strain in db :
         for contig in strain['contigs'] :
-            contig['record'].seq = Seq('', contig['record'].seq.alphabet)
+            contig['record'].seq = Seq('')
             contig['record'].features = None
             contig['record'].featureStarts = None
             contig['record'].lookup = None
@@ -102,12 +102,12 @@ def findPVinFolder(targetPath, filter, minLengths, plugins = None) :
 
     if not settings.subgroupOff :
         genegroups.addSubgroupHomologies(db)
-    print("Total blast analysis time: "+str(time.clock()-t)+"s")
+    print("Total blast analysis time: "+str(time.process_time()-t)+"s")
 
     geneGroups = genegroups.createGroupAnnotation(db)
 
     print('Pickling', end='', flush=True)
-    t=time.clock()
+    t=time.process_time()
 
     # Store the raw data so we can re-process without having to do the heavy lifting
     # create pickle directory
@@ -142,24 +142,24 @@ def findPVinFolder(targetPath, filter, minLengths, plugins = None) :
 
     print('!')
 
-    print("Total Pickling time: "+str(time.clock()-t)+"s")
+    print("Total Pickling time: "+str(time.process_time()-t)+"s")
 
     # HTML output
-    t=time.clock()
+    t=time.process_time()
     #outputAsHTML(db, os.path.join(targetPath, 'summary_tracts'))
-    #print("HTML Output time: "+str(time.clock()-t)+"s")
+    #print("HTML Output time: "+str(time.process_time()-t)+"s")
 
 def splitPickle(targetPath, bigPickle) :
     print("Loading Pickle")
-    t=time.clock()
+    t=time.process_time()
     with open(os.path.join(targetPath, bigPickle), 'rb') as file :
         db = pickle.load(file)
-    print("Time taken to load: "+str(time.clock()-t)+"s")
+    print("Time taken to load: "+str(time.process_time()-t)+"s")
 
     # Strip everything not still in use from the data
     for strain in db :
         for contig in strain['contigs'] :
-            contig['record'].seq = Seq('', contig['record'].seq.alphabet)
+            contig['record'].seq = Seq('')
             contig['record'].features = None
             contig['record'].featureStarts = None
             contig['record'].lookup = None
@@ -169,7 +169,7 @@ def splitPickle(targetPath, bigPickle) :
 
     print("Splitting Pickle", end='', flush=True)
 
-    t=time.clock()
+    t=time.process_time()
     # create pickle directory
     if not os.path.exists(targetPath+'/pickle') :
         os.makedirs(targetPath+'/pickle')
@@ -196,34 +196,34 @@ def splitPickle(targetPath, bigPickle) :
             pickle.dump(strain, file)
         print('.', end='', flush=True)
     print('')
-    print("Time taken to split: "+str(time.clock()-t)+"s")
+    print("Time taken to split: "+str(time.process_time()-t)+"s")
 
 def findAssociations(targetPath) :
     # Find associations
     #print("Finding associations")
-    t = time.clock()
+    t = time.process_time()
     finder = AssociationFinder()
     if settings.metadataCsv :
         finder.readMetadata(targetPath, os.path.join(targetPath, settings.metadataCsv), 0, settings.metadataColumns)
     else :
         finder.addSpeciesAsMetadata(targetPath)
     #finder.findAssociations(targetPath)
-    #print("Association finding time: "+str(time.clock()-t)+"s")
+    #print("Association finding time: "+str(time.process_time()-t)+"s")
     return finder
 
 def reHTMLPickle(targetPath, plugins) :
     # print("Loading Pickle")
-    # t=time.clock()
+    # t=time.process_time()
     # with open(os.path.join(targetPath, filename), 'rb') as file :
     #     db = pickle.load(file)
-    # print("Time taken to load: "+str(time.clock()-t)+"s")
+    # print("Time taken to load: "+str(time.process_time()-t)+"s")
 
 
     # HTML output
     print("Outputting html")
-    t=time.clock()
+    t=time.process_time()
     outputAsHTMLFromPickle(os.path.join(targetPath, 'summary_tracts'), plugins)
-    print("HTML Output time: "+str(time.clock()-t)+"s")
+    print("HTML Output time: "+str(time.process_time()-t)+"s")
 
 if __name__ == "__main__":
     main()

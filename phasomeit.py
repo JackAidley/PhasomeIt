@@ -11,7 +11,7 @@ import settings
 import findpvinstrains
 from speciesannotator import SpeciesAnnotator
 
-__version__ = '1.1.2'
+__version__ = '1.1.3'
 
 def main() :
     '''Run phasomeit using command line arguments'''
@@ -143,7 +143,7 @@ def main() :
     settings.metadataCsv = args.metadata
     settings.metadataColumns = args.metadataColumns
 
-    t=time.clock()
+    t=time.process_time()
 
     # Start the logger and add basic information
     findpvinstrains.startLog(args.target)
@@ -157,7 +157,7 @@ def main() :
     plugins.append(findpvinstrains.findAssociations(args.target))
     findpvinstrains.reHTMLPickle(args.target, plugins)
 
-    print("Time taken: "+str(time.clock()-t)+"s")
+    print("Time taken: "+str(time.process_time()-t)+"s")
 
 
     # Check what happened during the run and report if anything bad occured
