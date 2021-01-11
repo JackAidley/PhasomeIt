@@ -10,13 +10,14 @@ PhasomeIt is written in Python and thus platform-independent, however it is reli
 
 INSTALL PRE-REQUISITES
 
-1. Required: Python 3, version 3.3 or later
+1. Required: Python 3, version 3.9 or later (it may function with earlier versions)
 	a. Go to http://python.org and download the latest version of Python 3 for your system
 	b. Install according to the instructions on that site
 
 2. Required: The Python libraries BioPython and NatSort
-	a. To install BioPython follow instructions on their website: http://biopython.org/
-	b. To install NatSort, use Pip (included in Python install if you have Python 3.4 or greater, or check follow instructions at https://pip.pypa.io/en/stable/installing/), with the instruction 'pip install NatSort'
+	a. To install BioPython, use Pip with the command line instruction 'pip install biopython'
+	b. To install NatSort, use Pip with the instruction 'pip install NatSort'
+	(If you don't know how to use pip, see https://packaging.python.org/tutorials/installing-packages/
 
 3. Require: Install the BLAST+ suite
 	a. Go to the NCBI site, download and install according to their instructions - https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download
