@@ -1,5 +1,7 @@
 # PhasomeIt
-Tool for locating, classfying, and grouping phase variable SSRs in genomic collections
+PhasomeIt is a tool for locating, classfying, and grouping phase variable SSRs in small genomic collections. See the paper cited below for a full description.
+
+At the time I wrote it for my PhD, there were less than a hundred Campylobacter genomes publicly available and the software was designed for collections on this sort of scale. The largest collection I used it with contained somewhat over 200 genomes. If you have access to a computing cluster it will handle larger numbers than this but the running time increases at a rate larger than the square of the number of genomes, which means it will quickly exhaust available processing and memory limits for large collections. Not only that but the output of the software is designed to be intelligable for the now relatively small collections available at the time so you may find that it is difficult to interpret if used with much larger genome collections.
 
 Installation
 ------------
