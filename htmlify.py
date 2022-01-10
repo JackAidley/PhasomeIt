@@ -363,7 +363,7 @@ class HtmlCreator :
 
                     #Create the row and groupRow lists
                     row = [html.makeLink(groupName+'.html', groupName)]
-                    row += [self.geneGroups[group]['name'], self.geneGroups[group]['bestFunction'] if group != -1 else 'No data']
+                    row += [self.geneGroups[group]['name'], self.geneGroups[group]['bestFunction']] if group != -1 else ['No data', 'No data']
                     row += ['0', '0', '0']
                     rowHead = len(row)
                     row += (['']*self.guide['numStrains'])

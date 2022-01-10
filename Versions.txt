@@ -1,3 +1,4 @@
+1.1.4	:	Fixed crash bug with small input data sets
 1.1.3	:	Updated to work with Python 3.9 and BioPython 1.78
 1.1.2	:	Crash bug fix
 		:	Crash bug when no filter defined fixed.
