@@ -107,11 +107,16 @@ def addGenomeToDatabase(db, path, filter, minLengths) :
     for genomeRecord in SeqIO.parse(path, format) :
         # Skip plasmids
         if 'plasmid' in genomeRecord.features[0].qualifiers :
-            return
+            continue
         if not len(genomeRecord.description) :
             genomeRecord.description = genomeRecord.id
         sortAndMapFeatures(genomeRecord)
         contigs.append({'record' : genomeRecord, 'inGenome' : path} )
+    
+    # If we had no non-Plasmid contigs, then we leave without doing anything
+    if len(contigs) == 0 :
+        logging.info('File {0} skipped, contains only plasmids'.format(path))
+        return
 
     strain = {
         'name' : createGenomeName(genomeRecord, path, db),

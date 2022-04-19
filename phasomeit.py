@@ -11,7 +11,7 @@ import settings
 import findpvinstrains
 from speciesannotator import SpeciesAnnotator
 
-__version__ = '1.1.3'
+__version__ = '1.1.5'
 
 def main() :
     '''Run phasomeit using command line arguments'''

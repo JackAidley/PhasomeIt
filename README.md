@@ -42,7 +42,7 @@ INVOKE PHASOMEIT
 
 PhasomeIt is invoked by calling python on the script from the command line, navigate to the folder containing phasomeit and invoke the command below. Depending on how you have set up your system you may need to use 'python3' instead of 'python':
 
-python phasomeit -t *target-folder* -c *cutoffs* [-f *filter*]
+python phasomeit.py -t *target-folder* -c *cutoffs* [-f *filter*]
 
 Where: *target-folder* is the path containing your genomes
        *cutoffs* are the minimum repeat lengths to accept at each repeat length (see below)
